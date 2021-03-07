@@ -184,8 +184,8 @@ class study:
                 std.variable = e
 
     def click_tutorial(std, x, y, num):
-        if x >= 989 and x <= 1140:
-            if y >= 579 and y <= 640:
+        if x >= 930 and x <= 1140:
+            if y >= 530 and y <= 620:
                 std.TEST = True
                 std.TUTORIAL = False
                 std.MENU = False
@@ -609,9 +609,10 @@ class FrogGame:
         self.record, self.score = 0, 0
         self.lily_num = 3
         self.pairs = []
-        for i in range(1, 100):
-            for j in range(1, 100):
+        for i in range(1, 99):
+            for j in range(1, 100 - i):
                 self.pairs.append([i, j])
+                self.pairs.append([j, i])
         self.clock = pygame.time.Clock()
         self.time = 12500
         self.angle = 0
@@ -623,7 +624,7 @@ class FrogGame:
 
     def starting_event(self):
         self.n = 0
-        self.time = int(self.time * 0.8)
+        self.time = max(int(self.time * 0.8), 3000)
         if randint(0, 1):
             self.solution_type = True
             some = choice(self.pairs)
@@ -1650,13 +1651,18 @@ class PuzzleGame:
                     for spr in self.images:
                         if spr.update(event):
                             break
+                    x, y = event.pos
+                    if x <= 80 and y <= 80:
+                        Menu(self.vol0, self.vol1)
                 elif event.type == pygame.MOUSEMOTION:
                     self.images.update(event)
                 elif event.type == pygame.MOUSEBUTTONUP:
                     self.images.update(event, self.table, self.images)
+
             self.screen.fill((0, 0, 0))
             self.table.draw(self.screen)
             self.images.draw(self.screen)
+            self.screen.blit(load_image("Paint", "quit.png"), [0, 0])
             pygame.display.flip()
 
 
@@ -1827,6 +1833,9 @@ class RatingWindow:
                         self.table.move_data(True)
                     elif event.button == 1:
                         self.table.scroll(event)
+                    x, y = event.pos
+                    if x <= 80 and y <= 80:
+                        Menu(self.vol0, self.vol1)
                 elif event.type == pygame.MOUSEBUTTONUP:
                     if event.button == 1:
                         self.table.scroll(event)
@@ -1834,6 +1843,7 @@ class RatingWindow:
                     self.table.scroll(event)
             self.screen.fill((255, 255, 255))
             self.screen.blit(load_image("Raiting", "bg.png"), [0, 0])
+            self.screen.blit(load_image("Paint", "quit.png"), [0, 0])
             self.table.draw(self.screen)
 
             pygame.display.flip()
