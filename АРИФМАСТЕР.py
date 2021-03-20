@@ -1,12 +1,15 @@
-import pygame
-import random
-import os, sys
-
-
-import pygame
-import os, sys
-
+from PyJam import GPushButton
 from PyQt5 import QtWidgets
+import pygame
+import os, sys
+import tempfile
+import sqlite3
+from math import atan, sin, cos
+from random import choice, shuffle, randint
+from math import acos, pi, sqrt
+from time import sleep
+import random
+import math
 
 
 def load_image(gamemode, name):
@@ -70,7 +73,6 @@ class Profil:
                                                            [571 - n, 510 - ny],
                                                            [571 - n, 561 - ny],
                                                            [280 - n, 561 - ny]])
-
         if x:
             pygame.draw.rect(self.screen, (244, 191, 0), [243, 484, 1 + 291 * x, 52])
 
@@ -123,6 +125,7 @@ def how_num(std, x, y):
         if y >= 440 and y <= 600:
             return 11
 
+
 def blit_otv(screen, box_otv):
     font = pygame.font.Font("data/Menu/font/norm.ttf", 120)
 
@@ -132,6 +135,7 @@ def blit_otv(screen, box_otv):
             w = text.get_width()
             h = text.get_height()
             screen.blit(text, (470 + 330 * j + (301 - w) // 2, 70 + 270 * i + (221 - h) // 2))
+
 
 def how_otv_client(x, y, box_otv):
     for i in range(2):
@@ -291,7 +295,6 @@ class study:
             for j in range(2):
                 text = font.render(f"{i * 2 + j + 1}x{num}={num*(i*2 + j + 1)}", True,
                                    (0, 0, 0))
-                w = text.get_width()
                 if not j:
                     std.screen.blit(text, [1155 // 2 - 245 - 50, i * 100 + 70])
                 else:
@@ -348,12 +351,10 @@ class study:
                 else:
                     text = font.render(f"{i * 2 + j + 1}x{num}={num*(i*2 + j + 1)}", True,
                                    color)
-                w = text.get_width()
                 if not j:
                     std.screen.blit(text, [1155 // 2 - 345 - 170, i * 100 + 90])
                 else:
                     std.screen.blit(text, [1155 // 2 - 170, i * 100 + 90])
-        #pygame.draw.polygon(std.screen, (0, 0, 0), [[730, 70], [1101, 70], [1101, 431], [730, 431]])
         font = pygame.font.Font("data/Test/font/ariblk.ttf", 30)
         text0 = font.render("Здесь правильно - ", True,
                            (0, 0, 0))
@@ -371,8 +372,7 @@ class study:
         std.blit_table0(std.variable)
 
 
-import tempfile
-import sqlite3
+
 con = sqlite3.connect('db.db3')
 cur = con.cursor()
 
@@ -499,11 +499,6 @@ def del_user(user_id):
     con.commit()
 
 
-import pygame
-import os, sys
-from random import choice, shuffle, randint
-from math import acos, pi, sqrt
-from time import sleep
 pygame.init()
 pygame.mixer.init()
 size_x, size_y = 1155, 650
@@ -795,24 +790,9 @@ class FrogGame:
             pygame.display.flip()
 
 
-import pygame
-import os, sys
-from random import choice, shuffle, randint
-from math import acos, pi, sqrt
-from time import sleep
 pygame.init()
 pygame.mixer.init()
 size_x, size_y = 1155, 650
-#pygame.display.set_caption('Frog and numbers')
-#screen = pygame.display.set_mode((size_x, size_y))
-#font = pygame.font.Font(os.path.join('data', 'font.ttf'), 48)
-
-
-import random
-from time import sleep
-from math import sqrt, atan, sin, cos
-
-import pygame, os, sys
 
 
 def colis(i, event, topy):
@@ -1376,32 +1356,17 @@ class Game0:
             clock.tick(1000)
 
 
-import pygame, os, sys
+
 pygame.init()
 
 
-import pygame
-import pygame as pg
-import sys, os
-from random import choice, randint
-from PIL import Image
 
-
-import pygame
-import os, sys
-from random import choice, shuffle, randint
-from math import acos, pi, sqrt
-from time import sleep
 pygame.init()
 pygame.mixer.init()
 size_x, size_y = 1155, 650
 
 
-import pygame
-import random
-import sys
-import os
-import math
+
 
 
 def load_image(gamemode, name):
@@ -1925,7 +1890,8 @@ class Menu:
         self.background.blit(image, (0, 0), (0, 0, int(self.x * 0.38) - n, 750))
         self.background.blit(image, (int(self.x * 0.38) + n, 0), (int(self.x * 0.38) + n, 0, self.x, 750))
         self.background.blit(alpha_image, (int(self.x * 0.38) - n, 0), (int(self.x * 0.38) - n, 0, self.x, 750))
-        self.screen.blit(self.background, [0, 0])
+        return self.background
+
 
     def load_premenu(self):
         self.text = ''
@@ -2061,6 +2027,8 @@ class Menu:
         pb2 = load_image('Menu', "b2.png")
         pb3 = load_image('Menu', "b3.png")
 
+        name = "math.png"
+        self.back = self.change_background(name)
         #0.619 or 0.38
         while start:
             global user_id_glob
@@ -2070,6 +2038,11 @@ class Menu:
                     #sys.exit(app.exec_())
                     pygame.quit()
                     sys.exit()
+                if event.type == pygame.MOUSEMOTION:
+                    ButtonMenuGame0.update(event.pos)
+                    ButtonMenuGame1.update(event.pos)
+                    ButtonMenuGame2.update(event.pos)
+                    ButtonMenuGame3.update(event.pos)
                 if self.PROFIL and event.type == pygame.MOUSEBUTTONDOWN:
                     x, y = event.pos
                     if x <= 86 and y <= 81:
@@ -2079,19 +2052,19 @@ class Menu:
                     x, y = event.pos
                     if self.MENU:
                         if x >= 250 and x <= 250 + self.button_block.get_width():
-                            if y >= 70 and y <= 70 + self.button_block.get_height():
+                            if ButtonMenuGame0.hover_check(event.pos):
                                 start = False
                                 study(self.screen, self.user_id, self.vol0, self.vol1)
 
-                            if self.num_open_games >= 2 and y >= 200 and y <= 200 + self.button_block.get_height():
+                            if self.num_open_games >= 2 and ButtonMenuGame1.hover_check(event.pos):
                                 start = False
                                 FrogGame(self.screen, self.user_id, self.vol1, self.vol0)
 
-                            if self.num_open_games >= 3 and y >= 330 and y <= 330 + self.button_block.get_height():
+                            if self.num_open_games >= 3 and ButtonMenuGame2.hover_check(event.pos):
                                 start = False
                                 Game0(self.screen, self.user_id, self.vol0, self.vol1)
 
-                            if self.num_open_games >= 4 and y >= 460 and y <= 460 + self.button_block.get_height():
+                            if self.num_open_games >= 4 and ButtonMenuGame3.hover_check(event.pos):
                                 start = False
                                 PuzzleGame(self.screen, 1, self.vol0, self.vol1)
 
@@ -2158,6 +2131,7 @@ class Menu:
                 self.screen.blit(self.txt_surface5, [350, 300])
                 self.screen.blit(self.txt_surface3, [350, 340])
             if self.MENU:
+                self.screen.blit(self.back, (0, 0))
                 self.user_id = user_id_glob
                 self.num_open_games = len(get_user_opened_games(self.user_id))
                 prebox = [pb0, pb1, pb2, pb3]
@@ -2166,94 +2140,61 @@ class Menu:
                     box.append(prebox[i])
                 for i in range(4 - self.num_open_games):
                     box.append(self.button_block)
-                name = "math.png"
-                self.change_background(name)
+
                 n = 170
                 nn = 20
 
-                for i in range(4):
-                    self.screen.blit(box[i], (250, 70 + i * 130))
-
-
-
-                font = pygame.font.Font("data/Menu/font/norm.ttf", 65)
-                text = font.render("Подготовка", True, (255, 255, 255))
-                x_font = 250 + (self.button_block.get_width() - text.get_width()) // 2
-                self.screen.blit(text, [x_font, 80])
+                ButtonMenuGame0.draw(self.screen)
 
                 if self.num_open_games > 1:
-                    font = pygame.font.Font("data/Menu/font/norm.ttf", 65)
-                    text = font.render("Мистер Фрог", True, (255, 255, 255))
-                    x_font = 250 + (self.button_block.get_width() - text.get_width()) // 2
-                    self.screen.blit(text, [x_font, 210])
-
+                    ButtonMenuGame1.draw(self.screen)
                 if self.num_open_games > 2:
-                    font = pygame.font.Font("data/Menu/font/norm.ttf", 55)
-                    text = font.render("Астероидный", True, (255, 255, 255))
-                    x_font = 250 + (self.button_block.get_width() - text.get_width()) // 2
-                    self.screen.blit(text, [x_font, 323])
-                    text = font.render("дождь", True, (255, 255, 255))
-                    x_font = 250 + (self.button_block.get_width() - text.get_width()) // 2
-                    self.screen.blit(text, [x_font, 358])
-
+                    ButtonMenuGame2.draw(self.screen)
                 if self.num_open_games > 3:
-                    font = pygame.font.Font("data/Menu/font/norm.ttf", 65)
-                    text = font.render("Разукрашка", True, (255, 255, 255))
-                    x_font = 250 + (self.button_block.get_width() - text.get_width()) // 2
-                    self.screen.blit(text, [x_font, 465])
+                    ButtonMenuGame3.draw(self.screen)
 
-                # pygame.draw.polygon(self.screen, (0, 0, 0), [[800, 20],
-                #                                             [1121, 20],
-                #                                             [1121, 121],
-                #                                             [800, 121]])
+
+                #<--ButtonProfile
+                #BackGround
                 self.screen.blit(self.button0, (800, 20))
-                # pygame.draw.polygon(self.screen, (255, 255, 255), [[905, 30],
-                #                                             [1116, 30],
-                #                                             [1116, 61],
-                #                                             [905, 61]])
-
-                pygame.draw.polygon(self.screen, (255, 255, 255), [[905, 80],
-                                                                   [1116, 80],
-                                                                   [1116, 111],
-                                                                   [905, 111]])
+                pygame.draw.line(self.screen, (255, 255, 255), (905, 70), (1115, 70), 2)
+                # Progress bur
+                pygame.draw.polygon(self.screen, (255, 255, 255), [[905, 80], [1116, 80],
+                                                                   [1116, 111], [905, 111]])
                 if 212 * (get_user_have_score(self.user_id) / get_user_must_score(self.user_id)):
                     pygame.draw.rect(self.screen, (244, 191, 0), [905, 80, 212 * (get_user_have_score(self.user_id) / get_user_must_score(self.user_id)), 32])
-
                 self.screen.blit(self.progress_bar, [905, 80])
-
                 level = f"{get_user_have_score(self.user_id)}/{get_user_must_score(self.user_id)}"
-                # не больше 12 симвoлов
                 font = pygame.font.Font("data/Menu/font/Prime-Regular.ttf", 30)
                 text = font.render(level, True, (0, 0, 0))
                 self.screen.blit(text, [905 + (212 - text.get_width()) / 2, 85])
-
-                pygame.draw.line(self.screen, (255, 255, 255), (905, 70), (1115, 70), 2)
-
+                #Photo
                 self.screen.blit(self.photo, (800, 20))
-
                 self.screen.blit(self.frame, (800, 20))
+                #Name
                 name = get_user_name(self.user_id)
-                # не больше 12 симвoлов
                 font = pygame.font.Font("data/Menu/font/comici.ttf", 30)
                 text = font.render(name, True, (255, 255, 255))
                 self.screen.blit(text, [905, 23])
-                self.screen.blit(self.frame, (800, 20))
+                #Star
                 self.screen.blit(self.star, (770, 70))
                 level = str(get_user_level(self.user_id))
-                # не больше 12 симвoлов
                 font = pygame.font.Font("data/Menu/font/Prime-Regular.ttf", 30)
                 text = font.render(level, True, (0, 0, 0))
                 self.screen.blit(text, [770 + (71 - text.get_width()) // 2, 80 + (71 - text.get_height()) // 2])
-                # comici.ttf
+                #-->
+
                 self.screen.blit(self.button_options, [1030, 540])
                 self.screen.blit(self.but_chng, [1065, 476])
 
+                #<--ButtonRaiting
                 self.screen.blit(self.but_table, [965, 130])
                 font = pygame.font.Font("data/Menu/font/norm.ttf", 30)
                 text = font.render("Рейтинг", True, (255, 255, 255))
                 x_font = 250 + (self.button_block.get_width() - text.get_width()) // 2
                 self.screen.blit(text, [965 + (self.but_table.get_width() - text.get_width()) // 2,
                                         130 + (self.but_table.get_height() - text.get_height()) // 2])
+                #-->
             if self.PROFIL:
                 self.client_profil.start(get_user_have_score(self.user_id) / get_user_must_score(self.user_id))
                 name = get_user_name(self.user_id)
@@ -2297,7 +2238,39 @@ class Menu:
             pygame.display.flip()
 
 
+def vremenno_day_knopku(button):
+    button.set_size((381, 111))
+    button.set_font("data/Menu/font/norm.ttf")
+    button.hover_AnimationChangeSize(-10, -6)
+    button.hover_AnimationOfText(textColor=(230, 230, 230), fontSize=64)
+    button.set_fontSize(67)
+    button.set_textColor((255, 255, 255))
+    button.update((-1, -1))
+    return button
+
+
 if __name__ == '__main__':
+    ButtonMenuGame0 = GPushButton("Подготовка")
+    ButtonMenuGame0.set_image("data/Menu/img/b0.png")
+    ButtonMenuGame0.set_position((250, 70))
+    vremenno_day_knopku(ButtonMenuGame0)
+
+    ButtonMenuGame1 = GPushButton("Мистер Фрог")
+    ButtonMenuGame1.set_image("data/Menu/img/b1.png")
+    ButtonMenuGame1.set_position((250, 200))
+    vremenno_day_knopku(ButtonMenuGame1)
+
+    ButtonMenuGame2 = GPushButton("Астероидный\nдождь")
+    ButtonMenuGame2.set_image("data/Menu/img/b2.png")
+    ButtonMenuGame2.set_position((250, 330))
+    vremenno_day_knopku(ButtonMenuGame2)
+    ButtonMenuGame2.set_fontSize(52)
+    ButtonMenuGame2.hover_AnimationOfText(textColor=(230, 230, 230), fontSize=50)
+
+    ButtonMenuGame3 = GPushButton("Разукрашка")
+    ButtonMenuGame3.set_image("data/Menu/img/b3.png")
+    ButtonMenuGame3.set_position((250, 460))
+    vremenno_day_knopku(ButtonMenuGame3)
     try:
         user_id_glob = get_users()[0][0]
     except:
